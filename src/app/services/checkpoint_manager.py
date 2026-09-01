@@ -44,10 +44,16 @@ class CheckpointManager:
             try:
                 with open(self.path, "r", encoding="utf-8") as f:
                     data = json.load(f)
+                # Validate structure
+                if not isinstance(data, list):
+                    raise ValueError("Checkpoint must be a list")
+                for item in data:
+                    if not isinstance(item, dict) or "profile_id" not in item:
+                        raise ValueError("Invalid checkpoint structure")
                 print(f"  Loaded {len(data)} existing results from checkpoint")
                 return data
-            except (json.JSONDecodeError, KeyError):
-                print("  WARNING: Corrupt checkpoint file, starting fresh")
+            except (json.JSONDecodeError, KeyError, ValueError, TypeError) as e:
+                print(f"  WARNING: Corrupt checkpoint file ({e}), starting fresh")
                 return []
         return []
 

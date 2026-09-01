@@ -8,7 +8,6 @@ import time
 from typing import Optional
 from dataclasses import dataclass
 
-import httpx
 from openai import AsyncOpenAI
 
 from src.app.config import settings
