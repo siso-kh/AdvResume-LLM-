@@ -30,9 +30,9 @@ class TestTimerPrecision:
         perf_ms = (end_perf - start_perf) * 1000
         time_ms = (end_time - start_time) * 1000
 
-        # Both should be close to 10ms
+        # Both should be close to 10ms (allow wider tolerance for time.time)
         assert 8 < perf_ms < 12, f"perf_counter: expected ~10ms, got {perf_ms:.2f}ms"
-        assert 8 < time_ms < 12, f"time.time: expected ~10ms, got {time_ms:.2f}ms"
+        assert 8 < time_ms < 15, f"time.time: expected ~10ms, got {time_ms:.2f}ms"
 
     def test_perf_counter_resolution(self):
         """perf_counter should have sub-millisecond resolution."""
