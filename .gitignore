@@ -55,6 +55,12 @@ data/benchmarks/*.json
 data/benchmarks/*.png
 data/cv_screener.db
 
+# ── Test Cache ───────────────────────────────────────
+tests/*.pyc
+.pytest_cache/
+htmlcov/
+.coverage
+
 # ── OS ────────────────────────────────────────────────
 .DS_Store
 Thumbs.db

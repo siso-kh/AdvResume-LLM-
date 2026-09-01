@@ -13,12 +13,12 @@ import time
 import argparse
 from pathlib import Path
 
-# Add backend to path
+# Add src to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from backend.app.services.document_parser import DocumentParser
-from backend.app.services.llm_scorer import LLMScorer, load_job_description
-from backend.app.config import settings
+from src.app.services.document_parser import DocumentParser
+from src.app.services.llm_scorer import LLMScorer, load_job_description
+from src.app.config import settings
 
 
 def load_existing_results(output_path: Path) -> list:

@@ -8,7 +8,7 @@ import re
 import logging
 from typing import Optional
 from openai import OpenAI, APIError, APIConnectionError, APITimeoutError
-from backend.app.config import settings
+from src.app.config import settings
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
