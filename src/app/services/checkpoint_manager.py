@@ -58,8 +58,9 @@ class CheckpointManager:
         return []
 
     def _build_scored_keys(self) -> set:
-        """Build set of already-scored (profile_id, job_id) combinations."""
-        return {(r["profile_id"], r["job_id"]) for r in self.existing_results}
+        """Build set of already-scored (profile_id, job_id) combinations.
+        Only counts successful evaluations (no errors)."""
+        return {(r["profile_id"], r["job_id"]) for r in self.existing_results if not r.get("error")}
 
     def is_scored(self, profile_id: str, job_id: str) -> bool:
         """Check if a profile+job combination has already been scored."""
@@ -75,6 +76,26 @@ class CheckpointManager:
         self.buffer.append(result)
         self.buffer_count += 1
         self.total_count += 1
+
+        # Flush if interval reached
+        if self.buffer_count >= self.interval:
+            self.flush()
+
+    def add_successful(self, result: dict):
+        """
+        Add a successful result to the checkpoint buffer.
+        Failed results are saved but not counted as 'scored'.
+
+        Args:
+            result: Evaluation result dictionary
+        """
+        self.buffer.append(result)
+        self.buffer_count += 1
+        self.total_count += 1
+
+        # Only update scored_keys if successful
+        if not result.get("error"):
+            self.scored_keys.add((result["profile_id"], result["job_id"]))
 
         # Flush if interval reached
         if self.buffer_count >= self.interval:

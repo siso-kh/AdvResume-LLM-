@@ -120,8 +120,9 @@ def run_baseline_sync(resume: bool = False):
                     "processing_time_ms": result.processing_time_ms,
                     "is_adversarial": False,
                     "attack_vector": None,
+                    "error": result.error,
                 }
-                checkpoint.add(entry)
+                checkpoint.add_successful(entry)
 
                 print(f"  Score: {result.score}/100 -> {result.decision}")
                 print(f"  Reasoning: {result.reasoning[:80]}...")
