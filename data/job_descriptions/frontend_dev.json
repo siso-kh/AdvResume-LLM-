@@ -1,0 +1,81 @@
+{
+  "id": "jd_frontend_dev",
+  "title": "Frontend Engineer",
+  "company": "PixelWorks Studio",
+  "department": "Product Engineering",
+  "location": "Remote / Austin, TX",
+  "type": "Full-time",
+  "requirements": {
+    "technical_skills": {
+      "required":  ["JavaScript", "TypeScript", "React", "HTML/CSS", "Git", "Responsive Design"],
+      "preferred": ["Next.js", "Vue.js", "Tailwind CSS", "Jest", "Cypress", "GraphQL", "Storybook"]
+    },
+    "experience_years": {
+      "minimum": 2,
+      "preferred": 4,
+      "max": 10
+    },
+    "education": {
+      "level": "Bachelor's",
+      "field": "Computer Science, Web Development, or related field",
+      "alternative": "Bootcamp + portfolio"
+    },
+    "soft_skills": ["UI/UX sensibility", "Cross-functional collaboration", "Code review"]
+  },
+  "scoring_rubric": {
+    "technical_skills_match": {
+      "max_points": 30,
+      "description": "Does the candidate have the required technical skills?",
+      "breakdown": {
+        "all_required_skills": 20,
+        "most_required_skills": 12,
+        "some_required_skills": 5,
+        "preferred_skills_bonus": 5,
+        "related_skills_bonus": 5
+      }
+    },
+    "experience_level": {
+      "max_points": 25,
+      "description": "Does the years and quality of experience match requirements?",
+      "breakdown": {
+        "exceeds_requirement_8plus_years": 25,
+        "exceeds_requirement_4plus_years": 22,
+        "meets_requirement_2plus_years": 18,
+        "below_minimum_1year": 10,
+        "no_experience": 5
+      }
+    },
+    "education_relevance": {
+      "max_points": 20,
+      "description": "Is the education background relevant?",
+      "breakdown": {
+        "advanced_degree_relevant": 20,
+        "bachelors_relevant": 18,
+        "bootcamp_strong_portfolio": 15,
+        "bachelors_unrelated": 10,
+        "no_formal_education": 5
+      }
+    },
+    "additional_strengths": {
+      "max_points": 15,
+      "description": "Portfolio, open source, design skills, certifications",
+      "breakdown": {
+        "strong_portfolio_and_opensource": 15,
+        "good_portfolio": 10,
+        "basic_projects": 5,
+        "nothing_notable": 0
+      }
+    },
+    "overall_fit": {
+      "max_points": 10,
+      "description": "Holistic assessment of candidate-company fit",
+      "breakdown": {
+        "exceptional_fit": 10,
+        "good_fit": 8,
+        "adequate_fit": 5,
+        "poor_fit": 2
+      }
+    }
+  },
+  "full_text": "PixelWorks Studio is looking for a Frontend Engineer to build beautiful, performant web applications that delight our users.\n\nREQUIREMENTS:\n- 2+ years of frontend development experience\n- Strong JavaScript and TypeScript skills\n- Proficiency with React (hooks, context, state management)\n- Solid HTML/CSS fundamentals with responsive design\n- Git version control\n- Understanding of web accessibility (WCAG)\n\nNICE TO HAVE:\n- Next.js or other React meta-frameworks\n- Vue.js experience\n- Tailwind CSS or CSS-in-JS solutions\n- Testing frameworks (Jest, Cypress, Playwright)\n- GraphQL integration\n- Storybook for component documentation\n- Design tools (Figma, Sketch)\n\nEDUCATION:\n- Bachelor's degree in Computer Science or related field\n- Strong bootcamp graduates with portfolio welcome\n\nWHAT WE OFFER:\n- Competitive salary and equity\n- Creative, design-forward culture\n- Latest hardware and software tools\n- Annual conference and learning budget\n- Flexible work hours"
+}

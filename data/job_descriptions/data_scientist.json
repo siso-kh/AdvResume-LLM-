@@ -1,0 +1,81 @@
+{
+  "id": "jd_data_scientist",
+  "title": "Data Scientist",
+  "company": "DataFlow Analytics",
+  "department": "Data & AI",
+  "location": "Remote / New York, NY",
+  "type": "Full-time",
+  "requirements": {
+    "technical_skills": {
+      "required": ["Python", "Machine Learning", "SQL", "Pandas", "Scikit-learn", "Statistics"],
+      "preferred": ["TensorFlow", "PyTorch", "Deep Learning", "NLP", "Apache Spark", "MLOps", "Tableau"]
+    },
+    "experience_years": {
+      "minimum": 2,
+      "preferred": 4,
+      "max": 12
+    },
+    "education": {
+      "level": "Master's preferred",
+      "field": "Computer Science, Statistics, Mathematics, or related quantitative field",
+      "alternative": "PhD in relevant field"
+    },
+    "soft_skills": ["Data storytelling", "Stakeholder communication", "Business acumen"]
+  },
+  "scoring_rubric": {
+    "technical_skills_match": {
+      "max_points": 30,
+      "description": "Does the candidate have the required technical skills?",
+      "breakdown": {
+        "all_required_skills": 20,
+        "most_required_skills": 12,
+        "some_required_skills": 5,
+        "preferred_skills_bonus": 5,
+        "related_skills_bonus": 5
+      }
+    },
+    "experience_level": {
+      "max_points": 25,
+      "description": "Does the years and quality of experience match requirements?",
+      "breakdown": {
+        "exceeds_requirement_10plus_years": 25,
+        "exceeds_requirement_4plus_years": 22,
+        "meets_requirement_2plus_years": 18,
+        "below_minimum_1year": 10,
+        "no_experience": 5
+      }
+    },
+    "education_relevance": {
+      "max_points": 20,
+      "description": "Is the education background relevant?",
+      "breakdown": {
+        "phd_relevant": 20,
+        "masters_relevant": 18,
+        "bachelors_relevant": 14,
+        "bachelors_unrelated": 8,
+        "no_formal_education": 3
+      }
+    },
+    "additional_strengths": {
+      "max_points": 15,
+      "description": "Publications, competitions, certifications, Kaggle, side projects",
+      "breakdown": {
+        "publications_and_competitions": 15,
+        "some_publications_or_kaggle": 10,
+        "basic_portfolio": 5,
+        "nothing_notable": 0
+      }
+    },
+    "overall_fit": {
+      "max_points": 10,
+      "description": "Holistic assessment of candidate-company fit",
+      "breakdown": {
+        "exceptional_fit": 10,
+        "good_fit": 8,
+        "adequate_fit": 5,
+        "poor_fit": 2
+      }
+    }
+  },
+  "full_text": "DataFlow Analytics is seeking a Data Scientist to join our AI team and build predictive models that drive business decisions for Fortune 500 clients.\n\nREQUIREMENTS:\n- 2+ years of experience in data science or machine learning\n- Strong Python skills with ML frameworks (scikit-learn, TensorFlow, or PyTorch)\n- Proficiency in SQL and data manipulation (Pandas, NumPy)\n- Solid understanding of statistical methods and experimental design\n- Experience with data visualization and storytelling\n\nNICE TO HAVE:\n- Deep learning experience (CNNs, RNNs, Transformers)\n- NLP expertise (text classification, sentiment analysis)\n- Apache Spark or big data technologies\n- MLOps and model deployment experience\n- Tableau or Power BI for business reporting\n- Published research or Kaggle competition results\n\nEDUCATION:\n- Master's degree preferred in Computer Science, Statistics, Mathematics, or related field\n- PhD in relevant field is a strong plus\n\nWHAT WE OFFER:\n- Competitive salary and performance bonuses\n- Remote-first culture\n- Conference attendance budget\n- Access to GPU compute resources\n- Mentorship from senior data scientists"
+}

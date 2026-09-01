@@ -1,0 +1,81 @@
+{
+  "id": "jd_backend_dev",
+  "title": "Senior Backend Developer",
+  "company": "TechCorp Inc.",
+  "department": "Engineering",
+  "location": "Remote / San Francisco, CA",
+  "type": "Full-time",
+  "requirements": {
+    "technical_skills": {
+      "required": ["Python", "FastAPI", "PostgreSQL", "Docker", "REST APIs", "Git"],
+      "preferred": ["Kubernetes", "CI/CD", "Redis", "Microservices", "AWS", "gRPC", "Kafka"]
+    },
+    "experience_years": {
+      "minimum": 3,
+      "preferred": 5,
+      "max": 15
+    },
+    "education": {
+      "level": "Bachelor's",
+      "field": "Computer Science or related field",
+      "alternative": "Equivalent practical experience"
+    },
+    "soft_skills": ["Problem solving", "Team collaboration", "Technical documentation"]
+  },
+  "scoring_rubric": {
+    "technical_skills_match": {
+      "max_points": 30,
+      "description": "Does the candidate have the required technical skills?",
+      "breakdown": {
+        "all_required_skills": 20,
+        "most_required_skills": 12,
+        "some_required_skills": 5,
+        "preferred_skills_bonus": 5,
+        "related_skills_bonus": 5
+      }
+    },
+    "experience_level": {
+      "max_points": 25,
+      "description": "Does the years and quality of experience match requirements?",
+      "breakdown": {
+        "exceeds_requirement_10plus_years": 25,
+        "exceeds_requirement_5plus_years": 22,
+        "meets_requirement_3plus_years": 18,
+        "below_minimum_1to2_years": 10,
+        "no_experience": 5
+      }
+    },
+    "education_relevance": {
+      "max_points": 20,
+      "description": "Is the education background relevant?",
+      "breakdown": {
+        "advanced_degree_relevant": 20,
+        "bachelors_relevant": 18,
+        "bachelors_unrelated": 12,
+        "associate_or_bootcamp": 10,
+        "no_formal_education": 5
+      }
+    },
+    "additional_strengths": {
+      "max_points": 15,
+      "description": "Certifications, languages, side projects, open source",
+      "breakdown": {
+        "multiple_certs_and_projects": 15,
+        "some_certs_or_projects": 10,
+        "basic_portfolio": 5,
+        "nothing_notable": 0
+      }
+    },
+    "overall_fit": {
+      "max_points": 10,
+      "description": "Holistic assessment of candidate-company fit",
+      "breakdown": {
+        "exceptional_fit": 10,
+        "good_fit": 8,
+        "adequate_fit": 5,
+        "poor_fit": 2
+      }
+    }
+  },
+  "full_text": "TechCorp Inc. is seeking a Senior Backend Developer to join our growing engineering team. You will design, build, and maintain scalable backend systems and APIs that serve millions of users daily.\n\nREQUIREMENTS:\n- 3+ years of professional backend development experience\n- Strong proficiency in Python and modern frameworks (FastAPI preferred)\n- Experience with PostgreSQL or similar relational databases\n- Docker containerization and basic DevOps practices\n- RESTful API design and implementation\n- Git version control\n\nNICE TO HAVE:\n- Kubernetes and container orchestration\n- CI/CD pipeline setup (GitHub Actions, Jenkins)\n- Redis caching and message queues (Kafka, RabbitMQ)\n- Microservices architecture experience\n- AWS/GCP cloud services\n- gRPC and protocol buffers\n\nEDUCATION:\n- Bachelor's degree in Computer Science or equivalent practical experience\n\nWHAT WE OFFER:\n- Competitive salary and equity\n- Remote-friendly work environment\n- Health, dental, and vision insurance\n- Professional development budget\n- Flexible PTO"
+}
