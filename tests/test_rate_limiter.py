@@ -1,16 +1,17 @@
 """
 Test Rate Limiter
-Verifies token bucket rate limiting behavior.
+Verifies token bucket rate limiting behavior with daily reset.
 """
 import asyncio
 import time
 import pytest
 import sys
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from src.app.services.rate_limiter import RateLimiter, SyncRateLimiter
+from src.app.services.rate_limiter import RateLimiter, SyncRateLimiter, get_days_since_epoch
 
 
 class TestSyncRateLimiter:
@@ -53,6 +54,47 @@ class TestSyncRateLimiter:
         # Should timeout
         acquired = limiter.acquire(timeout=0.05)
         assert acquired is False
+
+    def test_daily_reset(self):
+        """Should reset tokens on new day."""
+        limiter = SyncRateLimiter(requests_per_second=10.0, burst_size=5, daily_reset=True)
+
+        # Exhaust all tokens
+        for _ in range(5):
+            limiter.try_acquire()
+        assert limiter.try_acquire() is False
+
+        # Simulate new day
+        limiter.current_day = get_days_since_epoch() - 1
+        limiter._check_daily_reset()
+
+        # Should have full burst again
+        assert limiter.try_acquire() is True
+
+    def test_daily_reset_disabled(self):
+        """Should not reset when daily_reset=False."""
+        limiter = SyncRateLimiter(requests_per_second=10.0, burst_size=5, daily_reset=False)
+
+        # Exhaust all tokens
+        for _ in range(5):
+            limiter.try_acquire()
+
+        # Simulate new day (but disabled)
+        limiter.current_day = get_days_since_epoch() - 1
+        limiter._check_daily_reset()
+
+        # Should still be empty
+        assert limiter.try_acquire() is False
+
+    def test_get_status_includes_daily_info(self):
+        """Should include daily reset info in status."""
+        limiter = SyncRateLimiter(requests_per_second=10.0, burst_size=5, daily_reset=True)
+        status = limiter.get_status()
+
+        assert "daily_reset" in status
+        assert "current_day" in status
+        assert "seconds_until_midnight" in status
+        assert status["daily_reset"] is True
 
 
 class TestAsyncRateLimiter:
@@ -102,3 +144,20 @@ class TestAsyncRateLimiter:
         assert status["tokens_available"] == 5
         assert status["burst_size"] == 5
         assert status["requests_per_second"] == 10.0
+
+    @pytest.mark.asyncio
+    async def test_daily_reset_async(self):
+        """Should reset tokens on new day (async)."""
+        limiter = RateLimiter(requests_per_second=10.0, burst_size=5, daily_reset=True)
+
+        # Exhaust all tokens
+        for _ in range(5):
+            limiter.try_acquire()
+        assert limiter.try_acquire() is False
+
+        # Simulate new day
+        limiter.current_day = get_days_since_epoch() - 1
+        limiter._check_daily_reset()
+
+        # Should have full burst again
+        assert limiter.try_acquire() is True
