@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     JOBS_DIR: str = "data/job_descriptions"
     RESULTS_DIR: str = "data/benchmarks"
     CV_DIR: str = "data/synthetic"
+    ADVERSARIAL_DIR: str = "data/adversarial"
 
     class Config:
         env_file = ".env"

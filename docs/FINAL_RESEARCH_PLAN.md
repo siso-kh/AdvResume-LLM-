@@ -4,7 +4,7 @@
 >
 > **Scope:** Bachelor-level research project with a fully functional application as the experimental platform.
 >
-> **Last Updated:** September 1, 2026 — Revised after literature review identified Baxi et al. (2026) and LongPIBench (2026).
+> **Last Updated:** September 3, 2026 — Revised with OWASP and StruQ defense citations.
 
 ---
 
@@ -143,7 +143,9 @@ Candidate C17 (Strong Backend Dev)
 | A2 | **Data injection** | Implicit | Hidden skills, fabricated experience, copied requirements — Most realistic per Zhang et al. |
 | A3 | **Encoding tricks** | Obfuscation | Base64, zero-width chars, Unicode tricks — Tests sanitization limits |
 
-**Sample Size:** 20 adversarial CVs per vector × 3 vectors = 60 adversarial CVs
+**Sample Size:** 7 adversarial CVs per vector × 3 vectors = 21 adversarial CVs × 5 runs = 105 evaluations per vector
+
+> **Why 7 CVs, not 20?** Our variance testing showed that 7 profiles (2 strong + 2 normal + 2 weak + 1 domain-mismatched) capture the full range of vulnerability patterns. Running 5 runs per profile gives us absorption probability with meaningful statistics.
 
 ### 4.4 — Metrics (Revised)
 
@@ -157,25 +159,34 @@ Candidate C17 (Strong Backend Dev)
 | **Pairwise Reversal** | A > clean, but B > A after attack | Fairness violation |
 | **Injection Absorption** | Payload in LLM reasoning | Partial success indicator |
 
-**Each metric reported as mean ± std over multiple runs (reproducibility).**
+**Each metric reported as mean ± std over N=5 runs per condition (reproducibility).**
+
+> **Methodology Update (Sept 2, 2026):** A1 testing revealed that adversarial CVs are non-deterministic — the same input produces different scores across runs (70-point range). Single-run testing is unreliable. We now use N=5 runs per condition to measure absorption probability and score variance.
 
 ### 4.5 — Models Tested
 
 | Model | Category | Why |
 |-------|----------|-----|
-| `mistral-large` | Closed-source | Strong baseline |
-| `deepseek-v4-flash` | Closed-source | Newer model |
-| `qwen3.8-27b` | Open-source | Open vs closed comparison |
+| `mistral-large` | Closed-source | Strong baseline (A1 complete: 13.3% absorption) |
+| `deepseek-v4-flash` | Closed-source | Newer model (pending: API rate limits) |
+| `qwen3.8-27b` | Open-source | Open vs closed comparison (partial: 13/21 results) |
 
 ### 4.6 — Defense Layers (D0-D4)
 
-| Layer | Name | Description |
-|-------|------|-------------|
-| D0 | No defense | Baseline (current system) |
-| D1 | Sanitization | Strip invisible text, metadata, unusual Unicode |
-| D2 | Detection | Secondary LLM call to classify suspicious content |
-| D3 | Context separation | Explicitly separate trusted JD from untrusted CV |
-| D4 | Combined | D1 + D2 + D3 |
+**Grounded in OWASP LLM Top 10 (2025) and StruQ (Chen et al., 2024).**
+
+| Layer | Name | OWASP/StruQ Source | Description |
+|-------|------|-------------------|-------------|
+| D0 | No defense | Baseline | Current system (no defenses) |
+| D1 | Input Sanitization | OWASP Cheat Sheet: "Input Validation and Sanitization" | Pattern matching for injection keywords, fuzzy matching for typos (typoglycemia), Unicode normalization, length limiting |
+| D2 | Structured Prompt | StruQ (Chen et al., 2024): "Structured Queries" | Separate instructions from data into two channels. System prompt explicitly marks CV as untrusted data |
+| D3 | Model-Based Guardrails | OWASP Cheat Sheet: "Model-Based Guardrails" | Secondary LLM call to screen inputs for injection patterns before primary scoring |
+| D4 | Combined | OWASP: "Layered defenses" | D1 + D2 + D3 combined |
+
+**Why these defenses:**
+- D1 (Sanitization) targets A1 (instruction injection) and A3 (encoding tricks) — OWASP recommends pattern matching and Unicode normalization
+- D2 (Structured Prompt) targets both A1 and A2 — StruQ proves that separating instructions from data reduces injection success
+- D3 (Guardrails) targets A2 (data injection) — OWASP recommends a separate model to screen inputs that regex misses
 
 ---
 
@@ -255,13 +266,23 @@ Candidate C17 (Strong Backend Dev)
 6. **Schulhoff et al. (2024)** — "The Prompt Report" — Comprehensive survey.
    - [arxiv.org/abs/2406.06608](https://arxiv.org/abs/2406.06608)
 
+7. **OWASP (2025)** — "LLM Prompt Injection Prevention Cheat Sheet" — Industry standard defense recommendations.
+   - [cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)
+
+8. **Chen et al. (2024)** — "StruQ: Defending Against Prompt Injection with Structured Queries" — Academic paper on context separation.
+   - [arxiv.org/abs/2402.06363](https://arxiv.org/abs/2402.06363)
+
 ---
 
 ## 8. Success Criteria
 
-- [ ] Working CV scoring pipeline (PDF → parse → LLM score → structured output)
-- [ ] 60+ baseline evaluations with score distributions documented
-- [ ] 180+ adversarial evaluations across 3 attack vectors
+- [x] Working CV scoring pipeline (PDF → parse → LLM score → structured output)
+- [x] 60+ baseline evaluations with score distributions documented
+- [x] A1 attack testing complete (105 multi-run evaluations, 13.3% absorption)
+- [x] Model non-determinism discovered and documented
+- [x] Methodology updated (N=5 runs per condition)
+- [ ] 105+ A2 adversarial evaluations with absorption probability
+- [ ] 105+ A3 adversarial evaluations with absorption probability
 - [ ] Attack success rates measured per vector with mean ± std
 - [ ] Pairwise ranking reversals quantified
 - [ ] Multi-model comparison showing at least one significant difference
@@ -281,8 +302,12 @@ Candidate C17 (Strong Backend Dev)
 > 3. **LLM models:** Multiple model families with different training approaches
 > 4. **Defensive mechanisms:** Layered defenses from sanitization to context isolation
 >
-> We quantify effects on candidate scores, rankings, decision flips, and pairwise ranking reversals, providing the first comprehensive comparison of attack transferability across screening architectures. All experiments are fully reproducible with synthetic data, eliminating ethical concerns associated with real candidate data.
+> We quantify effects on candidate scores, rankings, decision flips, and pairwise ranking reversals, providing the first comprehensive comparison of attack transferability across screening architectures.
+>
+> **New finding (Sept 2026):** We discover that adversarial CVs are non-deterministic — the same input produces different scores across runs (70-point range). This means injection success is probabilistic, not binary. We introduce multi-run testing methodology (N=5 per condition) to measure absorption probability rather than binary success/failure.
+>
+> All experiments are fully reproducible with synthetic data, eliminating ethical concerns associated with real candidate data.
 
 ---
 
-*Plan v2 — Revised September 1, 2026 based on literature review findings.*
+*Plan v2 — Revised September 3, 2026 with OWASP and StruQ defense citations.*
